@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id", nullable = false)
 	private MyUser user;
 	
@@ -36,10 +37,10 @@ public class Task {
 	private String task;
 	
 	@CreationTimestamp
-	private LocalDate createDate;
+	private LocalDate createdAt;
     
     @UpdateTimestamp
-	private LocalDate updateDate;
+	private LocalDate updatedAt;
     
     private LocalDate dueDate;
     
